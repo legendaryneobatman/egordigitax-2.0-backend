@@ -1,13 +1,21 @@
 import { Module } from '@nestjs/common';
 
-import { LinksModule } from './links/links.module';
-
 import { AppService } from './app.service';
 import { AppController } from './app.controller';
-import { AnalyticsModule } from './analytics/analytics.module';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
-  imports: [LinksModule, AnalyticsModule],
+  imports: [
+    ClientsModule.register([
+      {
+        name: 'USER_MICROSERVICE',
+        transport: Transport.TCP,
+        options: {
+          port: 3009,
+        }
+      }
+    ])
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

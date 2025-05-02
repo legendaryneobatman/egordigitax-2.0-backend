@@ -1,13 +1,18 @@
 import { Controller, Get, Inject } from '@nestjs/common';
-import { AppService } from './app.service';
 import { ClientProxy } from '@nestjs/microservices';
 
 @Controller('/')
 export class AppController {
+  constructor(
+    @Inject('USER_MICROSERVICE') private readonly userClient: ClientProxy,
+  ) {}
 
-  @Get()
+  @Get('/')
   test() {
-    console.log('asdasd')
-    return 'api-gateway appController test handler'
+    console.log('asdasd');
+    return this.userClient.send(
+      { cmd: 'test' },
+      { data: 'test' }
+    );
   }
 }
