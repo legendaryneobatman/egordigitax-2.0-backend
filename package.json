@@ -20,7 +20,7 @@
     "turbo": "^2.5.2"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "packageManager": "npm@9.6.7",
   "workspaces": [
