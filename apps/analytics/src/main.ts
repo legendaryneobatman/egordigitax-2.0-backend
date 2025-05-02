@@ -13,5 +13,6 @@ async function bootstrap() {
     },
   );
   await app.listen();
+  console.log('Analytics is listening on :3001');
 }
 bootstrap();

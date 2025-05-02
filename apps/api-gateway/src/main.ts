@@ -13,5 +13,6 @@ async function bootstrap() {
     },
   );
   await app.listen();
+  console.log("Api-gateway microservice started on port :3001")
 }
 bootstrap();
