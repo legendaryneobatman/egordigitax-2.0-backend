@@ -17,6 +17,8 @@ async function bootstrap() {
     jsonDocumentUrl: 'swagger/json',
   });
 
+  app.enableCors(false);
+
   await app.startAllMicroservices();
   await app.listen(3000); // HTTP port
   console.log("Api-gateway microservice started on port :3001")
