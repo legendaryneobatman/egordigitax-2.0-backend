@@ -1,0 +1,1 @@
+export const ANALYTICS_CLIENT = Symbol('ANALYTICS_CLIENT');
