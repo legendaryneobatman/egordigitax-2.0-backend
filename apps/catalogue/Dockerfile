@@ -9,6 +9,6 @@ COPY --from=edigitax-base /app/apps/catalogue ./apps/catalogue
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 3004
 
 CMD ["node", "apps/catalogue/dist/src/main.js"]
