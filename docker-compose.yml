@@ -1,0 +1,24 @@
+services:
+  api-gateway:
+    build:
+      context: .
+      dockerfile: apps/api-gateway/Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - shared-deps
+
+  catalogue:
+    build:
+      context: .
+      dockerfile: apps/catalogue/Dockerfile
+    ports:
+      - "3004:3004"
+    depends_on:
+      - shared-deps
+
+  shared-deps:
+    build:
+      context: .
+      target: base
+    command: echo "Base image built"
