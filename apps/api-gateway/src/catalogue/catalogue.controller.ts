@@ -6,6 +6,9 @@ import { CatalogueService } from './catalogue.service';
 
 export class CatalogueItem {
   @ApiProperty()
+  id: number;
+
+  @ApiProperty()
   name: string;
 
   @ApiProperty()
