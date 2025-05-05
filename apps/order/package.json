@@ -19,7 +19,6 @@
     "@nestjs/core": "^11.1.0",
     "@nestjs/microservices": "^11.1.0",
     "@nestjs/platform-express": "^11.1.0",
-    "@repo/api": "*",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"
   },

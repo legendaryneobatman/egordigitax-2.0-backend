@@ -2,10 +2,10 @@ FROM node:18-alpine
 
 WORKDIR /app
 
-COPY package.json ./
-COPY package-lock.json ./
+RUN mkdir ./node_modules
 
-COPY apps/catalogue/package.json ./apps/catalogue/package.json
+COPY --from=edigitax-base /app/node_modules ./node_modules
+COPY --from=edigitax-base /app/apps/catalogue ./apps/catalogue
 
 COPY . .
 

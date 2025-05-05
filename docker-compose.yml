@@ -21,4 +21,5 @@ services:
     build:
       context: .
       target: base
+    image: edigitax-base
     command: echo "Base image built"
