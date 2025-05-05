@@ -20,5 +20,6 @@ jobs:
             cd egordigitax-2.0-backend
             docker compose down
             git pull origin main
-            docker compose build -m 1073741824
+#            docker compose build -m 1073741824
+            docker compose build --parallel 2
             docker compose up -d
