@@ -9,27 +9,42 @@ import { MicroserviceMeta } from '../../types';
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
-  @MessagePattern<MicroserviceMeta>({ cmd: 'createProduct', service: 'catalogue' })
+  @MessagePattern<MicroserviceMeta>({
+    cmd: 'createProduct',
+    service: 'catalogue',
+  })
   create(@Payload() createProductDto: CreateProductDto) {
     return this.productService.create(createProductDto);
   }
 
-  @MessagePattern<MicroserviceMeta>({ cmd: 'findAllProduct', service: 'catalogue' })
+  @MessagePattern<MicroserviceMeta>({
+    cmd: 'findAllProduct',
+    service: 'catalogue',
+  })
   findAll() {
     return this.productService.findAll();
   }
 
-  @MessagePattern<MicroserviceMeta>({ cmd: 'findOneProduct', service: 'catalogue' })
+  @MessagePattern<MicroserviceMeta>({
+    cmd: 'findOneProduct',
+    service: 'catalogue',
+  })
   findOne(@Payload() id: number) {
     return this.productService.findOne(id);
   }
 
-  @MessagePattern<MicroserviceMeta>({ cmd: 'updateProduct', service: 'catalogue' })
+  @MessagePattern<MicroserviceMeta>({
+    cmd: 'updateProduct',
+    service: 'catalogue',
+  })
   update(@Payload() updateProductDto: UpdateProductDto) {
     return this.productService.update(updateProductDto.id, updateProductDto);
   }
 
-  @MessagePattern<MicroserviceMeta>({ cmd: 'removeProduct', service: 'catalogue' })
+  @MessagePattern<MicroserviceMeta>({
+    cmd: 'removeProduct',
+    service: 'catalogue',
+  })
   remove(@Payload() id: number) {
     return this.productService.remove(id);
   }

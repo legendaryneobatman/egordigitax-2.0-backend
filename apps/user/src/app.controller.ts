@@ -9,7 +9,7 @@ export class AppController {
   @MessagePattern({ cmd: 'test' })
   test() {
     return {
-      test: 'From User Microservice'
+      test: 'From User Microservice',
     };
   }
 }
