@@ -2,7 +2,7 @@ import { Controller, Get, Param } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { ApiProperty } from '@nestjs/swagger';
-import { CatalogueService } from './catalogue.service';
+import { CatalogueService } from '../../application/services/catalogue.service';
 
 export class CatalogueItem {
   @ApiProperty()
@@ -21,7 +21,6 @@ export class CatalogueItem {
   image: string;
 }
 
-
 @ApiTags('Catalogue')
 @Controller('catalogue')
 export class CatalogueController {
@@ -35,7 +34,7 @@ export class CatalogueController {
     type: [CatalogueItem],
   })
   getItems(): CatalogueItem[] {
-    return this.catalogueService.findAll()
+    return this.catalogueService.findAll();
   }
 
   @Get(':id')
@@ -46,6 +45,6 @@ export class CatalogueController {
     type: CatalogueItem,
   })
   get(@Param() params: { id: number }): CatalogueItem {
-    return this.catalogueService.findOne(params.id)
+    return this.catalogueService.findOne(params.id);
   }
 }

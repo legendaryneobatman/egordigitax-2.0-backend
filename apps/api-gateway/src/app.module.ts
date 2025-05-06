@@ -1,26 +1,11 @@
 import { Module } from '@nestjs/common';
-
-import { AppService } from './app.service';
-import { AppController } from './app.controller';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { CatalogueModule } from './catalogue/catalogue.module';
-import { ProductModule } from './catalogue/resources/product/product.module';
+import { APPLICATION_INJECT_PROVIDERS } from './application';
+import { PRESENTATION_INJECT_PROVIDERS } from './presentation';
+import { INFRA_INJECT_MODULES } from './infra';
 
 @Module({
-  imports: [
-    ClientsModule.register([
-      {
-        name: 'USER_MICROSERVICE',
-        transport: Transport.TCP,
-        options: {
-          port: 3009,
-        }
-      }
-    ]),
-    CatalogueModule,
-    ProductModule
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [...INFRA_INJECT_MODULES],
+  controllers: [...PRESENTATION_INJECT_PROVIDERS],
+  providers: [...APPLICATION_INJECT_PROVIDERS],
 })
 export class AppModule {}

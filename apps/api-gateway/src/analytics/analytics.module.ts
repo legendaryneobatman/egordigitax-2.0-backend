@@ -9,11 +9,10 @@ import { ANALYTICS_CLIENT } from './constants';
     ClientsModule.register([
       {
         name: ANALYTICS_CLIENT,
-
-      }
-    ])
+      },
+    ]),
   ],
   providers: [AnalyticsService],
-  controllers: [AnalyticsController]
+  controllers: [AnalyticsController],
 })
 export class AnalyticsModule {}

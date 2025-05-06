@@ -1,4 +1,3 @@
-import {type Prisma} from '@prisma/client'
 import { PrismaService } from '../database/prisma.service';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Injectable } from '@nestjs/common';
@@ -17,14 +16,17 @@ export class ProductService {
   }
 
   findOne(id: number) {
-    return this.prisma.product.findFirst();
+    return this.prisma.product.findFirst({ where: { id } });
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {
-    return this.prisma.product.update({where: {id}, data: updateProductDto});
+    return this.prisma.product.update({
+      where: { id },
+      data: updateProductDto,
+    });
   }
 
   remove(id: number) {
-    return this.prisma.product.delete({where: {id}});
+    return this.prisma.product.delete({ where: { id } });
   }
 }
