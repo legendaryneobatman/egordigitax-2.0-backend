@@ -11,5 +11,17 @@ COPY . .
 # Устанавливаем зависимости
 RUN npm install
 
+RUN chmod +x ./cli/generate-prisma-clients.sh
+
+# Добавьте установку bash и dos2unix
+RUN apk add --no-cache bash dos2unix
+
+# Конвертируем форматы строк и даем права
+RUN dos2unix ./cli/generate-prisma-clients.sh && \
+    chmod +x ./cli/generate-prisma-clients.sh
+
+# Теперь запускаем скрипт через bash
+RUN bash ./cli/generate-prisma-clients.sh
+
 # Собираем все приложения
 RUN npm run build
