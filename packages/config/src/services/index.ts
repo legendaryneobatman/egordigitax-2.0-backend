@@ -1,1 +1,2 @@
-export * from './api-gateway.config.js'
+export * from './api-gateway.config'
+export * from './catalogue.config'
