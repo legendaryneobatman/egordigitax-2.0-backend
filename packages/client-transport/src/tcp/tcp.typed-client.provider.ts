@@ -42,7 +42,6 @@ export class TcpTypedClientProxy<TPatterns extends Record<string, any>>
   extends ClientProxy
   implements OnModuleInit, OnModuleDestroy
 {
-
   unwrap<T>(): T {
     throw new Error('Method not implemented.');
   }
@@ -57,30 +56,32 @@ export class TcpTypedClientProxy<TPatterns extends Record<string, any>>
   }
 
   private client: ClientProxy;
+  private isDestroyed = false;
+  private retryInterval: NodeJS.Timeout | undefined;
 
   constructor(private readonly config: TcpClientOptions) {
     super();
-    this.client = ClientProxyFactory.create(config);
+    this.client = ClientProxyFactory.create(this.config);
   }
 
-  send<P extends FlatPatterns<TPatterns>>(
-    pattern: P,
-    payload: GetRequest<TPatterns, P>
-  ): Observable<GetResponse<TPatterns, P>>;
-
-  send<TResult = any, TInput = any>(
-    pattern: any,
-    data: TInput
-  ): Observable<TResult> {
-    return this.client.send(pattern, data);
+  private initClient() {
+    this.client = ClientProxyFactory.create(this.config);
   }
 
-  async sendAsync<P extends FlatPatterns<TPatterns>>(
-    pattern: P,
-    payload: GetRequest<TPatterns, P>
-  ): Promise<GetResponse<TPatterns, P>> {
-    const source = this.send(pattern, payload);
-    return firstValueFrom(source);
+  async connect() {
+    while (!this.isDestroyed) {
+      try {
+        if (this.client) {
+          await this.client?.connect();
+          console.log('Successfully connected to TCP server');
+          return;
+        }
+      } catch (error: any) {
+        console.error(`Connection failed: ${error?.message}`);
+        await new Promise((resolve) => setTimeout(resolve, 10000));
+        this.initClient(); // Пересоздаем клиент для новой попытки
+      }
+    }
   }
 
   async onModuleInit() {
@@ -88,12 +89,33 @@ export class TcpTypedClientProxy<TPatterns extends Record<string, any>>
   }
 
   async onModuleDestroy() {
-    await this.close();
+    this.isDestroyed = true;
+    if (this.retryInterval) clearTimeout(this.retryInterval);
+    if (this.client) {
+      await this.client?.close();
+    }
   }
 
-  async connect() {
-    return this.client.connect();
+  send<P extends FlatPatterns<TPatterns>>(
+    pattern: P,
+    payload: GetRequest<TPatterns, P>,
+  ): Observable<GetResponse<TPatterns, P>>;
+
+  send<TResult = any, TInput = any>(
+    pattern: any,
+    data: TInput,
+  ): Observable<TResult> {
+    return this.client.send(pattern, data);
   }
+
+  async sendAsync<P extends FlatPatterns<TPatterns>>(
+    pattern: P,
+    payload: GetRequest<TPatterns, P>,
+  ): Promise<GetResponse<TPatterns, P>> {
+    const source = this.send(pattern, payload);
+    return firstValueFrom(source);
+  }
+
   async close() {
     return this.client.close();
   }

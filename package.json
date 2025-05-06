@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "dev:gateway": "turbo run dev --filter=api-gateway --filter='@repo/*'",
-    "dev:gateway:catalogue": "turbo run dev --filter=api-gateway --filter=catalogue",
+    "dev:gateway:catalogue": "turbo run dev --filter=api-gateway --filter=catalogue --filter='@repo/*'",
     "build:packages": "turbo run build --filter='@repo/*'",
     "build:apps": "turbo run build --filter='./apps/*'",
     "build": "npm run build:packages && npm run build:apps",

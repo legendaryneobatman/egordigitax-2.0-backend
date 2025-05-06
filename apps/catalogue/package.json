@@ -23,7 +23,11 @@
     "@prisma/client": "^6.7.0",
     "class-transformer": "^0.5.1",
     "reflect-metadata": "^0.2.0",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "@repo/client-transport": "*",
+    "@repo/decorators": "*",
+    "@repo/schemas": "*",
+    "@repo/config": "*"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",

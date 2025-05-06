@@ -10,7 +10,7 @@ export type CatalogueServicePatterns = {
     };
     FIND_MANY_PRODUCT: {
       request: DTO.PRODUCT.FindManyProductRequest;
-      response: DTO.PRODUCT.FindOneProductResponse;
+      response: DTO.PRODUCT.FindManyProductResponse;
     };
   }
 };

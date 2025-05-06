@@ -1,27 +1,27 @@
 services:
-  api-gateway:
-    build:
-      context: .
-      dockerfile: apps/api-gateway/Dockerfile
-      args:
-        - PORT=${SERVICE_API_GATEWAY_HTTP_PORT}
-    environment:
-      - SERVICE_API_GATEWAY_HTTP_PORT=${SERVICE_API_GATEWAY_HTTP_PORT}
-    ports:
-      - "${SERVICE_API_GATEWAY_HTTP_PORT}:${SERVICE_API_GATEWAY_HTTP_PORT}"
-    depends_on:
-      - shared-deps
-
   catalogue:
     build:
       context: .
       dockerfile: apps/catalogue/Dockerfile
       args:
         - PORT=${SERVICE_CATALOGUE_TCP_PORT}
-    environment:
-      - SERVICE_CATALOGUE_TCP_PORT=${SERVICE_CATALOGUE_TCP_PORT}
+    networks:
+      app-network:
+        aliases:
+          - ${SERVICE_CATALOGUE_NAMESPACE}
+    depends_on:
+      - shared-deps
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: apps/api-gateway/Dockerfile
+      args:
+        - PORT=${SERVICE_API_GATEWAY_HTTP_PORT}
+    networks:
+      - app-network
     ports:
-      - "${SERVICE_CATALOGUE_TCP_PORT}:${SERVICE_CATALOGUE_TCP_PORT}"
+      - "${SERVICE_API_GATEWAY_HTTP_PORT}:${SERVICE_API_GATEWAY_HTTP_PORT}"
     depends_on:
       - shared-deps
 
@@ -31,3 +31,7 @@ services:
       target: base
     image: edigitax-base
     command: echo "Base image built"
+
+networks:
+  app-network:
+    driver: bridge
