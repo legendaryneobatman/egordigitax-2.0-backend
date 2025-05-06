@@ -3,8 +3,12 @@ services:
     build:
       context: .
       dockerfile: apps/api-gateway/Dockerfile
+      args:
+        - PORT=${SERVICE_API_GATEWAY_HTTP_PORT}
+    environment:
+      - SERVICE_API_GATEWAY_HTTP_PORT=${SERVICE_API_GATEWAY_HTTP_PORT}
     ports:
-      - "3000:3000"
+      - "${SERVICE_API_GATEWAY_HTTP_PORT}:${SERVICE_API_GATEWAY_HTTP_PORT}"
     depends_on:
       - shared-deps
 
@@ -12,8 +16,12 @@ services:
     build:
       context: .
       dockerfile: apps/catalogue/Dockerfile
+      args:
+        - PORT=${SERVICE_CATALOGUE_TCP_PORT}
+    environment:
+      - SERVICE_CATALOGUE_TCP_PORT=${SERVICE_CATALOGUE_TCP_PORT}
     ports:
-      - "3004:3004"
+      - "${SERVICE_CATALOGUE_TCP_PORT}:${SERVICE_CATALOGUE_TCP_PORT}"
     depends_on:
       - shared-deps
 

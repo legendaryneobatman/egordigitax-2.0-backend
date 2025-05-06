@@ -1,4 +1,3 @@
-import {type Prisma} from '@prisma/client'
 import { PrismaService } from '../database/prisma.service';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Injectable } from '@nestjs/common';

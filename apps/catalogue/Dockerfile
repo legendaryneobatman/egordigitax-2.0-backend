@@ -1,14 +1,18 @@
 FROM node:18-alpine
 
+ENV PORT=$PORT
+
 WORKDIR /app
 
 RUN mkdir ./node_modules
 
 COPY --from=edigitax-base /app/node_modules ./node_modules
 COPY --from=edigitax-base /app/apps/catalogue ./apps/catalogue
+COPY --from=edigitax-base /app/packages/ ./packages
+
 
 COPY . .
 
-EXPOSE 3004
+EXPOSE $PORT
 
 CMD ["node", "apps/catalogue/dist/src/main.js"]
