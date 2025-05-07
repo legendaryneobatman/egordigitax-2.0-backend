@@ -1,8 +1,9 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { ApiProperty } from '@nestjs/swagger';
 import { CatalogueService } from '../../application';
+import { DTO } from '@repo/schemas';
 
 export class CatalogueItem {
   @ApiProperty()
@@ -19,7 +20,15 @@ export class CatalogueItem {
 
   @ApiProperty()
   image: string;
+
+  @ApiProperty()
+  oldPrice: number;
+
+  @ApiProperty()
+  discount: number;
 }
+
+export class CreateProductDto extends CatalogueItem {}
 
 @ApiTags('Catalogue')
 @Controller('catalogue')
@@ -53,8 +62,23 @@ export class CatalogueController {
       id: response.item.id,
       name: response.item.name,
       description: response.item.description,
-      price: response.item.price,
       image: response.item.image,
+      price: response.item.price,
+      discount: response.item.discount,
+      oldPrice: response.item.oldPrice,
     };
+  }
+
+  @Post()
+  @ApiOperation({
+    summary: 'Create product',
+  })
+  @ApiResponse({
+    status: '2XX',
+    description: 'Returns created item',
+    type: CreateProductDto,
+  })
+  async createOne(@Body() body: DTO.PRODUCT.CreateOneProductRequest) {
+    return await this.catalogueService.createOne(body);
   }
 }

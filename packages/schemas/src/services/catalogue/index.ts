@@ -12,5 +12,9 @@ export type CatalogueServicePatterns = {
       request: DTO.PRODUCT.FindManyProductRequest;
       response: DTO.PRODUCT.FindManyProductResponse;
     };
+    CREATE_ONE_PRODUCT: {
+      request: DTO.PRODUCT.CreateOneProductRequest,
+      response: DTO.PRODUCT.CreateOneProductResponse,
+    }
   }
 };

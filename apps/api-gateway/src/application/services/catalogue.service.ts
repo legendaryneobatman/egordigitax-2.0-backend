@@ -16,4 +16,10 @@ export class CatalogueService {
   findAll(): Promise<DTO.PRODUCT.FindManyProductResponse> {
     return this.catalogueClient.sendAsync('PRODUCT.FIND_MANY_PRODUCT', {});
   }
+
+  createOne(
+    data: DTO.PRODUCT.CreateOneProductRequest,
+  ): Promise<DTO.PRODUCT.CreateOneProductResponse> {
+    return this.catalogueClient.sendAsync('PRODUCT.CREATE_ONE_PRODUCT', data);
+  }
 }

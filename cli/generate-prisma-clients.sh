@@ -25,7 +25,7 @@ find apps packages -type f -name "schema.prisma" | while read schema; do
 
     if [ -f "package.json" ] && grep -q "\"prisma\"" package.json; then
       echo "Generating client for $service_name"
-      npx prisma generate --schema=./prisma/schema.prisma >> "$LOG_FILE" 2>&1
+      dotenv ../../.env npx prisma generate --schema=./prisma/schema.prisma >> "$LOG_FILE" 2>&1
       echo "✅ Successfully generated client for $service_name"
     else
       echo "⚠️  Prisma not found in $service_name dependencies"
