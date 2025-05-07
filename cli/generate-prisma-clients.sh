@@ -19,7 +19,7 @@ run_prisma_operations() {
   dotenv -e ../../.env npx prisma generate --schema="$schema_path" >> "$LOG_FILE" 2>&1
 
   echo "Applying migrations for $service_name"
-  dotenv -e ../../.env npx prisma migrate deploy --schema="$schema_path" >> "$LOG_FILE" 2>&1
+  dotenv -e ../../.env npx prisma db push --schema="$schema_path" >> "$LOG_FILE" 2>&1
 }
 
 find apps packages -type f -name "schema.prisma" | while read schema; do
