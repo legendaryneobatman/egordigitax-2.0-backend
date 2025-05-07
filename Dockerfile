@@ -21,7 +21,7 @@ RUN dos2unix ./cli/generate-prisma-clients.sh && \
     chmod +x ./cli/generate-prisma-clients.sh
 
 # Теперь запускаем скрипт через bash
-RUN bash ./cli/generate-prisma-clients.sh
+RUN npm run generate-api
 
 # Собираем все приложения
 RUN npm run build
