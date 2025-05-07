@@ -17,7 +17,7 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
-            cd egordigitax-2.0-backend
+            cd project/egordigitax-2.0-backend
             docker compose down
             git pull origin main
             docker compose build -m 1073741824
