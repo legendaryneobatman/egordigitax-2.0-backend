@@ -10,7 +10,10 @@ services:
         aliases:
           - ${SERVICE_CATALOGUE_NAMESPACE}
     depends_on:
-      - shared-deps
+      db:
+        condition: service_healthy
+      shared-deps:
+        condition: service_started
 
   api-gateway:
     build:
@@ -32,6 +35,29 @@ services:
     image: edigitax-base
     command: echo "Base image built"
 
+  db:
+    image: postgres:latest
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123123
+      POSTGRES_DB: postgres
+    networks:
+      app-network:
+        aliases:
+          - ${SERVICE_CATALOGUE_NAMESPACE}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
 networks:
   app-network:
     driver: bridge
+
+volumes:
+  postgres_data:
