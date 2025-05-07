@@ -30,4 +30,13 @@ export class ProductController {
   > {
     return this.productService.findMany();
   }
+
+  @MessagePattern('PRODUCT.CREATE_ONE_PRODUCT')
+  async createOne(
+    data: RequestType<CatalogueServicePatterns, 'PRODUCT.CREATE_ONE_PRODUCT'>,
+  ): Promise<
+    ResponseType<CatalogueServicePatterns, 'PRODUCT.CREATE_ONE_PRODUCT'>
+  > {
+    return this.productService.create(data);
+  }
 }
