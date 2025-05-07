@@ -9,7 +9,6 @@ COPY turbo.json .
 COPY . .
 
 # Устанавливаем зависимости
-RUN npm install -g dotenv-cli
 RUN npm install
 
 RUN chmod +x ./cli/generate-prisma-clients.sh
