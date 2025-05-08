@@ -39,6 +39,13 @@ echo "[$APP_NAME] Applying migrations..."
   npx dotenv -e ../../.env -- npx prisma migrate deploy --schema="./prisma/schema.prisma"
 )
 
+# Применение сидов
+echo "[$APP_NAME] Applying seeds..."
+(
+  cd "apps/$APP_NAME"
+  npx dotenv -e ../../.env -- npx prisma db seed --schema="./prisma/schema.prisma"
+)
+
 echo "[$APP_NAME] Migrations applied successfully"
 
 # Запуск приложения
