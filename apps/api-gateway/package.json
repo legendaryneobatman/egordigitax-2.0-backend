@@ -20,10 +20,11 @@
     "@nestjs/microservices": "^11.1.0",
     "@nestjs/platform-express": "^11.1.0",
     "@nestjs/swagger": "^11.1.6",
-    "@repo/config": "*",
-    "@repo/schemas": "*",
     "@repo/client-transport": "*",
+    "@repo/config": "*",
     "@repo/decorators": "*",
+    "@repo/schemas": "*",
+    "class-transformer": "^0.5.1",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"
   },

@@ -9,17 +9,23 @@ export class CatalogueService {
     private readonly catalogueClient: CATALOGUE_SERVICE_CLIENT_INJECT_TOKEN,
   ) {}
 
-  findOne(id: number): Promise<DTO.PRODUCT.FindOneProductResponse> {
+  productFindOne(id: number): Promise<DTO.PRODUCT.FindOneProductResponse> {
     return this.catalogueClient.sendAsync('PRODUCT.FIND_ONE_PRODUCT', { id });
   }
 
-  findAll(): Promise<DTO.PRODUCT.FindManyProductResponse> {
+  productFindAll(): Promise<DTO.PRODUCT.FindManyProductResponse> {
     return this.catalogueClient.sendAsync('PRODUCT.FIND_MANY_PRODUCT', {});
   }
 
-  createOne(
+  productCreateOne(
     data: DTO.PRODUCT.CreateOneProductRequest,
   ): Promise<DTO.PRODUCT.CreateOneProductResponse> {
     return this.catalogueClient.sendAsync('PRODUCT.CREATE_ONE_PRODUCT', data);
+  }
+
+  productUpdateOne(
+    data: DTO.PRODUCT.UpdateOneProductRequest,
+  ): Promise<DTO.PRODUCT.UpdateOneProductResponse> {
+    return this.catalogueClient.sendAsync('PRODUCT.UPDATE_ONE_PRODUCT', data);
   }
 }

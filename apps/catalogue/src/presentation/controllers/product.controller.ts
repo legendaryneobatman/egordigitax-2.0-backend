@@ -39,4 +39,13 @@ export class ProductController {
   > {
     return this.productService.create(data);
   }
+
+  @MessagePattern('PRODUCT.UPDATE_ONE_PRODUCT')
+  async updateOne(
+    data: RequestType<CatalogueServicePatterns, 'PRODUCT.UPDATE_ONE_PRODUCT'>,
+  ): Promise<
+    ResponseType<CatalogueServicePatterns, 'PRODUCT.UPDATE_ONE_PRODUCT'>
+  > {
+    return this.productService.update(data);
+  }
 }

@@ -25,4 +25,10 @@ export class ProductService {
   ) {
     return this.productRepository.create(data);
   }
+
+  async update(
+    data: RequestType<CatalogueServicePatterns, 'PRODUCT.UPDATE_ONE_PRODUCT'>,
+  ) {
+    return this.productRepository.update(data.id, data);
+  }
 }

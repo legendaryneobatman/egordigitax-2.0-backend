@@ -15,6 +15,10 @@ export type CatalogueServicePatterns = {
     CREATE_ONE_PRODUCT: {
       request: DTO.PRODUCT.CreateOneProductRequest,
       response: DTO.PRODUCT.CreateOneProductResponse,
+    };
+    UPDATE_ONE_PRODUCT: {
+      request: DTO.PRODUCT.UpdateOneProductRequest,
+      response: DTO.PRODUCT.UpdateOneProductResponse,
     }
   }
 };
