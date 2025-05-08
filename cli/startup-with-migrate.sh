@@ -22,7 +22,7 @@ export PGPASSWORD="$DB_PASS"
 # Ожидание доступности PostgreSQL
 echo "[$APP_NAME] Checking PostgreSQL connection..."
 until pg_isready -h "$DB_HOST" -p "$DB_PORT" -U "$DB_USER" -d postgres; do
-  echo "[$APP_NAME] Waiting for PostgreSQL..."
+  echo "[$APP_NAME] Waiting for PostgreSQL...HOST: $DB_HOST, PORT: $DB_PORT, USER: $DB_USER"
   sleep 2
 done
 
