@@ -1,10 +1,35 @@
 services:
+  db:
+    image: postgres:latest
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    environment:
+      POSTGRES_USER: ${SHARED_DB_USER}
+      POSTGRES_PASSWORD: ${SHARED_DB_PASSWORD}
+    ports:
+      - "${SHARED_DB_PORT}:5432"
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      app-network:
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
   catalogue:
     build:
       context: .
       dockerfile: apps/catalogue/Dockerfile
       args:
         - PORT=${SERVICE_CATALOGUE_TCP_PORT}
+    entrypoint: ["./cli/startup-with-migrate.sh"]
+    environment:
+      APP_NAME: catalogue
+      DATABASE_URL: ${SERVICE_CATALOGUE_DATABASE_URL}
     networks:
       app-network:
         aliases:
@@ -27,6 +52,7 @@ services:
       - "${SERVICE_API_GATEWAY_HTTP_PORT}:${SERVICE_API_GATEWAY_HTTP_PORT}"
     depends_on:
       - shared-deps
+      - catalogue
 
   shared-deps:
     build:
@@ -34,30 +60,8 @@ services:
       target: base
     image: edigitax-base
     command: echo "Base image built"
-
-  db:
-    image: postgres:latest
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123123
-      POSTGRES_DB: postgres
-    logging:
-      options:
-        max-size: "10m"
-        max-file: "3"
-    networks:
-      app-network:
-        aliases:
-          - ${SERVICE_CATALOGUE_NAMESPACE}
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    depends_on:
+      - db
 
 networks:
   app-network:
