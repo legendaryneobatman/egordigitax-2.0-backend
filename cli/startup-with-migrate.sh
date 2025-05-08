@@ -44,7 +44,6 @@ echo "[$APP_NAME] Migrations applied successfully"
 # Запуск приложения
 echo "[$APP_NAME] Starting application..."
 (
-  ls -la
   node "apps/$APP_NAME/dist/src/main.js"
 )
 exec "$@"
