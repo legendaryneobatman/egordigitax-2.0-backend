@@ -16,7 +16,7 @@
     "test:e2e": "turbo run test:e2e",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "generate-db": "./cli/generate-prisma-clients.sh"
+    "gen-db": "./cli/generate-prisma-clients.sh"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",

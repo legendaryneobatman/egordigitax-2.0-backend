@@ -15,11 +15,114 @@ generator client {
 }
 
 model Product {
-  id          Int    @id @default(autoincrement())
+  id          Int             @id @default(autoincrement())
   name        String
   description String
   image       String
   price       Float
   oldPrice    Float
   discount    Float
+  SKU         String
+  weight      Float
+  metaTag     ProductMetaTag?
+  categoryId  Int?            @unique
+  status      ProductStatus
+
+  categories CategoriesOnProducts[]
+  attributes AttributesOnProduct[]
+}
+
+enum ProductStatus {
+  ACTIVE
+  DISABLED
+  ARCHIVED
+}
+
+model ProductMetaTag {
+  productId   Int      @unique
+  title       String   @db.VarChar(60)
+  description String   @db.VarChar(160)
+  keywords    String[]
+  tags        Json
+  Product     Product  @relation(fields: [productId], references: [id])
+}
+
+model Category {
+  id          Int     @id @default(autoincrement())
+  name        String  @db.VarChar(255)
+  description String?
+  icon        String? @db.VarChar(100)
+  parentId    Int? // Ссылка на родительскую категорию
+  sort_order  Int     @default(0)
+
+  // Связи
+  parent   Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryHierarchy")
+
+  products CategoriesOnProducts[]
+
+  // Индексы
+  @@index([parentId]) // Для поиска детей
+  @@index([sort_order]) // Для сортировки
+}
+
+model CategoriesOnProducts {
+  product    Product  @relation(fields: [productId], references: [id])
+  productId  Int
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  @@id([productId, categoryId])
+}
+
+// Связь продукта с атрибутами
+model AttributesOnProduct {
+  product     Product        @relation(fields: [productId], references: [id])
+  productId   Int
+  attribute   Attribute      @relation(fields: [attributeId], references: [id])
+  attributeId Int
+  value       AttributeValue @relation(fields: [valueId], references: [id])
+  valueId     Int
+
+  @@id([productId, attributeId])
+}
+
+model Attribute {
+  id          Int              @id @default(autoincrement())
+  name        String           @unique @db.VarChar(255)
+  type        AttributeType
+  values      AttributeValue[]
+  description String?
+  unit        String?          @db.VarChar(20) // Например: "мм", "кг", "см"
+
+  // Связи с продуктами
+  products AttributesOnProduct[]
+
+  @@index([name])
+  @@index([type])
+}
+
+model AttributeValue {
+  id          Int       @id @default(autoincrement())
+  value       String    @db.VarChar(255)
+  attribute   Attribute @relation(fields: [attributeId], references: [id])
+  attributeId Int
+
+  // Дополнительные поля для специфичных типов
+  colorHex         String?               @db.Char(7) // Для цветов: #FF0000
+  image            String? // URL иконки для визуального отображения
+  sortOrder        Int                   @default(0)
+  productAttribute AttributesOnProduct[]
+
+  @@unique([attributeId, value])
+  @@index([value])
+}
+
+enum AttributeType {
+  COLOR // Цвет с визуальным представлением
+  SIZE // Размер (одежды, техники и т.д.)
+  MATERIAL // Материал изготовления
+  DROPDOWN // Произвольный выпадающий список
+  BOOLEAN // Да/Нет
+  NUMERIC // Числовое значение с единицами измерения
 }

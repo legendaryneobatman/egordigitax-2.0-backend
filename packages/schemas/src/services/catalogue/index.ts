@@ -19,6 +19,28 @@ export type CatalogueServicePatterns = {
     UPDATE_ONE_PRODUCT: {
       request: DTO.PRODUCT.UpdateOneProductRequest,
       response: DTO.PRODUCT.UpdateOneProductResponse,
+    };
+    ADD_ATTRIBUTE: {
+      request: DTO.PRODUCT.AddAttributeRequest,
+      response: DTO.PRODUCT.AddAttributeResponse
     }
+  },
+  ATTRIBUTE: {
+    FIND_ONE_ATTRIBUTE: {
+      request: DTO.ATTRIBUTE.FindOneAttributeRequest,
+      response: DTO.ATTRIBUTE.FindOneAttributeResponse,
+    },
+    FIND_MANY_ATTRIBUTE: {
+      request: DTO.ATTRIBUTE.FindManyAttributeRequest,
+      response: DTO.ATTRIBUTE.FindManyAttributeResponse,
+    },
+    CREATE_ONE_ATTRIBUTE: {
+      request: DTO.ATTRIBUTE.CreateOneAttributeRequest,
+      response: DTO.ATTRIBUTE.CreateOneAttributeResponse,
+    },
+    UPDATE_ONE_ATTRIBUTE: {
+      request: DTO.ATTRIBUTE.UpdateOneAttributeRequest,
+      response: DTO.ATTRIBUTE.UpdateOneAttributeResponse,
+    },
   }
 };

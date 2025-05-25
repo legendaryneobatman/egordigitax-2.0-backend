@@ -1,3 +1,5 @@
+import {IProductMetaTag, IProductStatus} from "../../resources/IProduct";
+
 export interface CreateOneProductRequest {
   name: string;
   description: string;
@@ -5,6 +7,10 @@ export interface CreateOneProductRequest {
   price: number;
   oldPrice: number;
   discount: number;
+  SKU: string;
+  weight: number;
+  status: IProductStatus;
+  categoryId: number;
 }
 
 export interface CreateOneProductResponse {
@@ -14,4 +20,8 @@ export interface CreateOneProductResponse {
   price: number;
   oldPrice: number;
   discount: number;
+  SKU: string;
+  weight: number;
+  status: IProductStatus;
+  categoryId: number;
 }

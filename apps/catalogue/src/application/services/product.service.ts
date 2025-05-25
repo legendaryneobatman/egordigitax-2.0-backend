@@ -31,4 +31,8 @@ export class ProductService {
   ) {
     return this.productRepository.update(data.id, data);
   }
+
+  async addAttributes(
+    data: RequestType<CatalogueServicePatterns, 'PRODUCT.ADD_ATTRIBUTE'>,
+  ) {}
 }
