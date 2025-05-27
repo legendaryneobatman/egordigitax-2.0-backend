@@ -18,7 +18,7 @@ export async function seedProducts(prisma: PrismaClient) {
       image: faker.image.url(),
       SKU: faker.commerce.isbn(),
       weight: 0,
-      categoryId: 0,
+      categoryId: null,
       status: 'ACTIVE',
     };
   };
