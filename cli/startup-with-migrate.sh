@@ -36,7 +36,7 @@ fi
 echo "[$APP_NAME] Applying migrations..."
 (
   cd "apps/$APP_NAME"
-  npx dotenv -e ../../.env -- npx prisma migrate deploy --force --schema="./prisma/schema.prisma"
+  npx dotenv -e ../../.env -- npx prisma migrate deploy --schema="./prisma/schema.prisma"
 )
 
 # Применение сидов
