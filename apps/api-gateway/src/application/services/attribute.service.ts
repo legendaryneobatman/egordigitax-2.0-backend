@@ -16,8 +16,13 @@ export class AttributeService {
       id,
     });
   }
-  attributeFindAll(): Promise<DTO.ATTRIBUTE.FindManyAttributeResponse> {
-    return this.catalogueClient.sendAsync('ATTRIBUTE.FIND_MANY_ATTRIBUTE', {});
+  attributeFindAll(
+    data: DTO.ATTRIBUTE.FindManyAttributeRequest,
+  ): Promise<DTO.ATTRIBUTE.FindManyAttributeResponse> {
+    return this.catalogueClient.sendAsync(
+      'ATTRIBUTE.FIND_MANY_ATTRIBUTE',
+      data,
+    );
   }
   attributeCreateOne(
     data: DTO.ATTRIBUTE.CreateOneAttributeRequest,
@@ -32,6 +37,15 @@ export class AttributeService {
   ): Promise<DTO.ATTRIBUTE.UpdateOneAttributeResponse> {
     return this.catalogueClient.sendAsync(
       'ATTRIBUTE.UPDATE_ONE_ATTRIBUTE',
+      data,
+    );
+  }
+
+  attributeDeleteOne(
+    data: DTO.ATTRIBUTE.DeleteOneAttributeRequest,
+  ): Promise<DTO.ATTRIBUTE.DeleteOneAttributeResponse> {
+    return this.catalogueClient.sendAsync(
+      'ATTRIBUTE.DELETE_ONE_ATTRIBUTE',
       data,
     );
   }

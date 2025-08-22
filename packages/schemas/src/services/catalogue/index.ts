@@ -20,9 +20,9 @@ export type CatalogueServicePatterns = {
       request: DTO.PRODUCT.UpdateOneProductRequest,
       response: DTO.PRODUCT.UpdateOneProductResponse,
     };
-    ADD_ATTRIBUTE: {
-      request: DTO.PRODUCT.AddAttributeRequest,
-      response: DTO.PRODUCT.AddAttributeResponse
+    DELETE_ONE: {
+      request: DTO.PRODUCT.DeleteOneProductRequest,
+      response: DTO.PRODUCT.DeleteOneProductResponse
     }
   },
   ATTRIBUTE: {
@@ -42,5 +42,9 @@ export type CatalogueServicePatterns = {
       request: DTO.ATTRIBUTE.UpdateOneAttributeRequest,
       response: DTO.ATTRIBUTE.UpdateOneAttributeResponse,
     },
+    DELETE_ONE_ATTRIBUTE: {
+      request: DTO.ATTRIBUTE.DeleteOneAttributeRequest,
+      response: DTO.ATTRIBUTE.DeleteOneAttributeResponse,
+    }
   }
 };

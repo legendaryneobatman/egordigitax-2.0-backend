@@ -28,4 +28,10 @@ export class ProductService {
   ): Promise<DTO.PRODUCT.UpdateOneProductResponse> {
     return this.catalogueClient.sendAsync('PRODUCT.UPDATE_ONE_PRODUCT', data);
   }
+
+  async productDeleteOne(
+    data: DTO.PRODUCT.DeleteOneProductRequest,
+  ): Promise<DTO.PRODUCT.DeleteOneProductResponse> {
+    return this.catalogueClient.sendAsync('PRODUCT.DELETE_ONE', data);
+  }
 }

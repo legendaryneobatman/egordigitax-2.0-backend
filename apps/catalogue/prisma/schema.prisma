@@ -89,7 +89,7 @@ model AttributesOnProduct {
 
 model Attribute {
   id          Int              @id @default(autoincrement())
-  name        String           @unique @db.VarChar(255)
+  name        String           @db.VarChar(255)
   type        AttributeType
   values      AttributeValue[]
   description String?

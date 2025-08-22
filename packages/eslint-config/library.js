@@ -3,8 +3,8 @@ const { resolve } = require('node:path');
 const project = resolve(process.cwd(), 'tsconfig.json');
 
 /** @type {import("eslint").Linter.Config} */
-module.exports = {
-  extends: ['./base.js'],
+export default {
+  extends: ['./base.js'].map(require.resolve),
   plugins: ['only-warn'],
   globals: {
     React: true,

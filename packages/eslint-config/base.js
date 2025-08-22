@@ -1,7 +1,7 @@
 /** @type {import("eslint").Linter.Config} */
 const turboConfig = require("eslint-config-turbo");
 
-module.exports = {
+export default {
   root: true,
   ...turboConfig,
   extends: [

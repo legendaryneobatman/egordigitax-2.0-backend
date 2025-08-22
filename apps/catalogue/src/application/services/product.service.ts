@@ -32,7 +32,9 @@ export class ProductService {
     return this.productRepository.update(data.id, data);
   }
 
-  async addAttributes(
-    data: RequestType<CatalogueServicePatterns, 'PRODUCT.ADD_ATTRIBUTE'>,
-  ) {}
+  async delete(
+    data: RequestType<CatalogueServicePatterns, 'PRODUCT.DELETE_ONE'>,
+  ) {
+    return this.productRepository.delete(data.id);
+  }
 }

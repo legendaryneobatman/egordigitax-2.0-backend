@@ -48,4 +48,11 @@ export class ProductController {
   > {
     return this.productService.update(data);
   }
+
+  @MessagePattern('PRODUCT.DELETE_ONE')
+  async deleteOne(
+    data: RequestType<CatalogueServicePatterns, 'PRODUCT.DELETE_ONE'>,
+  ): Promise<ResponseType<CatalogueServicePatterns, 'PRODUCT.DELETE_ONE'>> {
+    return this.productService.delete(data);
+  }
 }

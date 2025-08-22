@@ -5,6 +5,7 @@
   "description": "",
   "author": "",
   "license": "UNLICENSED",
+  "type": "module",
   "scripts": {
     "dev": "turbo run dev",
     "dev:gateway": "turbo run dev --filter=api-gateway --filter='@repo/*'",
@@ -37,6 +38,7 @@
   ],
   "dependencies": {
     "@faker-js/faker": "^9.7.0",
-    "dotenv-cli": "^8.0.0"
+    "dotenv-cli": "^8.0.0",
+    "eslint": "^9.33.0"
   }
 }

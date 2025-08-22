@@ -1,7 +1,7 @@
 // Базовый класс репозитория
-import { IRepository } from '../IRepository';
-import { PrismaService } from './prisma.service';
-import { Injectable } from '@nestjs/common';
+import {IRepository} from '../../../shared/helpers/IRepository';
+import {PrismaService} from './prisma.service';
+import {Injectable} from '@nestjs/common';
 
 @Injectable()
 export abstract class PrismaOrmRepository<T> implements IRepository<T> {
@@ -9,7 +9,13 @@ export abstract class PrismaOrmRepository<T> implements IRepository<T> {
 
   abstract get model(): {
     findUnique: (args: { where: { id: number } }) => Promise<T | null>;
-    findMany: () => Promise<T[]>;
+    findMany: (args?: {
+      skip?: number;
+      take?: number;
+      orderBy?: any;
+      where?: any;
+    }) => Promise<T[]>;
+    count: (args?: {where: object}) => Promise<number>;
     create: (args: { data: Omit<T, 'id'> }) => Promise<T>;
     update: (args: { where: { id: number }; data: Partial<T> }) => Promise<T>;
     delete: (args: { where: { id: number } }) => Promise<T>;
@@ -21,6 +27,15 @@ export abstract class PrismaOrmRepository<T> implements IRepository<T> {
 
   async findAll(): Promise<T[]> {
     return this.model.findMany();
+  }
+
+
+  async findMany(args?: { skip?: number; take?: number; orderBy?: any; where?: any; }): Promise<T[]> {
+    return this.model.findMany({...args,})
+  }
+
+  async count(args?: object): Promise<number> {
+    return await this.model.count({where: args});
   }
 
   async create(data: Omit<T, 'id'>): Promise<T> {

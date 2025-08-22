@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Attribute } from '.prisma/client';
-import { IRepository } from '../IRepository';
+import { Attribute, Prisma } from '.prisma/client';
+import { IRepository } from '../../../shared/helpers/IRepository';
 import { PrismaOrmRepository } from './OrmRepository.prisma';
 import { PrismaService } from './prisma.service';
 
@@ -20,3 +20,4 @@ export class AttributeRepository
     return this.prisma.attribute;
   }
 }
+
