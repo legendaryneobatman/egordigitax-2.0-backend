@@ -1,6 +1,8 @@
+import nestConfig from '@repo/eslint-config/nest'
+
 /** @type {import("eslint").Linter.Config} */
-module.exports = {
-  extends: ['@repo/eslint-config/nest.js'],
+export default {
+  ...nestConfig,
   parserOptions: {
     project: 'tsconfig.json',
     tsconfigRootDir: __dirname,

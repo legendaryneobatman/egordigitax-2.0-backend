@@ -1,6 +1,8 @@
+import baseConfig from './base'
+
 /** @type {import("eslint").Linter.Config} */
 export default {
-  extends: ['./base.js'].map(require.resolve),
+  ...baseConfig,
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',

@@ -1,8 +1,9 @@
+import libraryConfig from "@repo/eslint-config/library";
+
 // This configuration only applies to the package manager root.
 /** @type {import("eslint").Linter.Config} */
 export default {
-  ignorePatterns: ["apps/**", "packages/**"],
-  extends: ["@repo/eslint-config/library.js"],
+  ...libraryConfig,
   parser: "@typescript-eslint/parser",
   parserOptions: {
     project: true,

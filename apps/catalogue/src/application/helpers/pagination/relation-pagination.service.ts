@@ -1,37 +1,25 @@
-// pagination.service.ts
+// relation-pagination.service.ts
 import { Injectable } from '@nestjs/common';
-import {Sort} from "@repo/schemas";
-
-export interface PaginationParams {
-    page?: number;
-    size?: number;
-    sort?: Sort;
-}
-
-export interface PaginatedResult<T> {
-    items: T[];
-    page: number;
-    totalElements: number;
-    totalPages: number;
-}
+import { BasePaginationService } from './base-pagination.service';
+import {PaginatedResult, PaginationParams} from "./types";
 
 @Injectable()
-export class PaginationService {
-    private readonly DEFAULT_PAGE = 0;
-    private readonly DEFAULT_SIZE = 10;
-    private readonly DEFAULT_SORT = { field: 'id', order: 'asc' as const };
-
-    async paginate<T>(
+export class RelationPaginationService extends BasePaginationService {
+    /**
+     * Paginate with eager loading relations
+     */
+    async paginateWithRelations<T>(
         repository: {
             findMany: (args: any) => Promise<T[]>;
             count: (args?: any) => Promise<number>;
         },
-        params: PaginationParams,
+        params: PaginationParams & { include?: object },
         where?: object,
     ): Promise<PaginatedResult<T>> {
         const page = params.page ?? this.DEFAULT_PAGE;
-        const size = params.size ?? this.DEFAULT_SIZE;
+        const size = Math.min(params.size ?? this.DEFAULT_SIZE, this.MAX_PAGE_SIZE);
         const sort = params.sort ?? this.DEFAULT_SORT;
+        const include = params.include;
 
         const orderBy = sort.field ? { [sort.field]: sort.order } : undefined;
 
@@ -41,6 +29,7 @@ export class PaginationService {
                 take: size,
                 orderBy,
                 where,
+                include, // Include related entities
             }),
             repository.count(where),
         ]);

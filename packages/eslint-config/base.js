@@ -1,24 +1,17 @@
-/** @type {import("eslint").Linter.Config} */
 const turboConfig = require("eslint-config-turbo");
+import tsPlugin from "@typescript-eslint/eslint-plugin";
+import tsParser from "@typescript-eslint/parser";
+import prettierPlugin from "eslint-plugin-prettier";
+import prettierConfig from "eslint-config-prettier";
 
+/** @type {import("eslint").Linter.Config} */
 export default {
   root: true,
   ...turboConfig,
-  extends: [
-    "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended",
-    "prettier",
+  ...prettierConfig,
+  plugins: [
+    tsPlugin,
+    prettierPlugin,
   ],
-  plugins: ["@typescript-eslint/eslint-plugin"],
-  parser: "@typescript-eslint/parser",
-  ignorePatterns: [
-    ".*.js",
-    "*.setup.js",
-    "*.config.js",
-    ".turbo/",
-    "dist/",
-    "coverage/",
-    "node_modules/",
-    ".husky/",
-  ],
+  parser: tsParser,
 };
