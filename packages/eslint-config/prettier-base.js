@@ -1,4 +1,4 @@
 /** @type {import("prettier").Config} */
-export default {
+export const prettierBaseConfig = {
   singleQuote: true,
 };

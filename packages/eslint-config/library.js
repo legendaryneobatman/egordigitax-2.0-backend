@@ -1,29 +1,17 @@
-import baseConfig from './base'
-import onlyWarn from 'eslint-plugin-only-warn'
-const { resolve } = require('node:path');
+import {config as baseConfig} from './base.js'
+import { resolve } from 'node:path';
+
 const project = resolve(process.cwd(), 'tsconfig.json');
 
+
 /** @type {import("eslint").Linter.Config} */
-export default {
+export const libraryConfig = {
   ...baseConfig,
-  plugins: [onlyWarn],
-  globals: {
-    React: true,
-    JSX: true,
-  },
-  env: {
-    node: true,
-  },
   settings: {
     'import/resolver': {
       typescript: {
-        project,
-      },
-    },
-  },
-  overrides: [
-    {
-      files: ['*.js?(x)', '*.ts?(x)'],
-    },
-  ],
+        project
+      }
+    }
+  }
 };

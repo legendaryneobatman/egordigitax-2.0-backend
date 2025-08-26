@@ -17,8 +17,8 @@ export class PaginationService {
         private readonly paginationMetadataService: PaginationMetadataService
     ) { }
 
-    async paginate(...args: Parameters<typeof this.basePaginationService.paginate>) {
-        return this.basePaginationService.paginate(...args);
+    async paginate<T>(...args: Parameters<typeof this.basePaginationService.paginate<T>>) {
+        return this.basePaginationService.paginate<T>(...args);
     }
 
     async paginateWithCursor(...args: Parameters<typeof this.cursorPaginationService.paginateWithCursor>) {

@@ -4,9 +4,9 @@ export interface Sort {
 }
 
 export interface PaginatedRequest {
-  page: number;
-  size: number;
-  sort: Sort;
+  page?: number;
+  size?: number;
+  sort?: Sort;
 }
 
 export interface PaginatedResponse {
